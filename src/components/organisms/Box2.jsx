@@ -12,16 +12,16 @@ export const Box2 = (props) => {
 	const todoList = progressTodos.map((todo, index) => (
 		<Item key={index}>
 			<ItemContent>
-				<ItemTitle>{todo}</ItemTitle>
-				{/* <ItemTags>
+				<ItemTitle>{todo.task}</ItemTitle>
+				<ItemTags>
 					<ItemTag>{todo.category}</ItemTag>
-				</ItemTags> */}
+				</ItemTags>
 			</ItemContent>
 			<ItemSubcontent>
 				<ItemComplete>
 					<img src={IconCompleteImage} alt="" />
 				</ItemComplete>
-				<ItemDelete onClick={onClickDelete}>delete...</ItemDelete>
+				<ItemDelete onClick={() => onClickDelete(index)}>delete...</ItemDelete>
 			</ItemSubcontent>
 		</Item>
 	));
@@ -64,6 +64,7 @@ const ItemTags = styled.div`
 `;
 const ItemTag = styled.div`
 	background-color: #1d8ac7;
+	font-weight: bold;
 	font-size: 12px;
 	color: #fff;
 	padding: 8px 15px;

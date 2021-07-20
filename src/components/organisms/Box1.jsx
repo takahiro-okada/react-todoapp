@@ -3,28 +3,41 @@ import IconCompleteImage from "../../images/icon-complete.png";
 import { BoxTitle } from "../atoms/BoxTitle";
 
 export const Box1 = (props) => {
-	const { title, color, incompleteTodos, setIncompleteTodos } = props;
+	const {
+		title,
+		color,
+		incompleteTodos,
+		setIncompleteTodos,
+		completeTodos,
+		setCompleteTodos,
+	} = props;
 	// 削除ボタン
 	const onClickDelete = (index) => {
 		const newTodos = [...incompleteTodos];
-		console.log(newTodos);
 		newTodos.splice(index, 1);
-		console.log(newTodos);
 		setIncompleteTodos(newTodos);
+	};
+	// 完了ボタン
+	const onClickComplete = (index) => {
+		const newIncompleteTodos = [...incompleteTodos];
+		newIncompleteTodos.splice(index, 1);
+		const newCompleteTodos = [...completeTodos, incompleteTodos[index]];
+		setIncompleteTodos(newIncompleteTodos);
+		setCompleteTodos(newCompleteTodos);
 	};
 	const todoList = incompleteTodos.map((todo, index) => (
 		<Item key={index}>
 			<ItemContent>
-				<ItemTitle>{todo}</ItemTitle>
-				{/* <ItemTags>
+				<ItemTitle>{todo.task}</ItemTitle>
+				<ItemTags>
 					<ItemTag>{todo.category}</ItemTag>
-				</ItemTags> */}
+				</ItemTags>
 			</ItemContent>
 			<ItemSubcontent>
-				<ItemComplete>
-					<img src={IconCompleteImage} alt="" />
+				<ItemComplete onClick={() => onClickComplete(index)}>
+					<img src={IconCompleteImage} alt="Complete" />
 				</ItemComplete>
-				<ItemDelete onClick={onClickDelete}>delete...</ItemDelete>
+				<ItemDelete onClick={() => onClickDelete(index)}>delete...</ItemDelete>
 			</ItemSubcontent>
 		</Item>
 	));
@@ -39,6 +52,9 @@ const SBox = styled.div``;
 const ItemComplete = styled.div`
 	width: 30px;
 	height: 30px;
+	&:active {
+		background-color: red;
+	}
 `;
 const List = styled.ul`
 	margin-top: 30px;
@@ -67,6 +83,7 @@ const ItemTags = styled.div`
 `;
 const ItemTag = styled.div`
 	background-color: #1d8ac7;
+	font-weight: bold;
 	font-size: 12px;
 	color: #fff;
 	padding: 8px 15px;

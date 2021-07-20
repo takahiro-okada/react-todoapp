@@ -12,26 +12,38 @@ function App() {
 	const openModal = () => {
 		setShow(true);
 	};
-	const [todoText, setTodoText] = useState("");
-	const [incompleteTodos, setIncompleteTodos] = useState(["aaa", "bbbbbb"]);
-	const [progressTodos, setProgressTodos] = useState([
-		"開発中のため",
-		"動きません",
-		"Drag and Drop させたい",
+	const [todoText, setTodoText] = useState([
+		{
+			task: "",
+			category: "",
+		},
 	]);
-	const [completeTodos, setCompleteTodos] = useState(["eee", "fff"]);
+	const [incompleteTodos, setIncompleteTodos] = useState([
+		{ task: "メール処理", category: "お仕事" },
+		{ task: "掃除", category: "お家" },
+		{ task: "散歩", category: "お家" },
+	]);
+	const [progressTodos, setProgressTodos] = useState([
+		{ task: "開発中", category: "React" },
+		{ task: "ドラッグアンドドロップで", category: "React" },
+		{ task: "動かしたいぜ", category: "React" },
+	]);
+	const [completeTodos, setCompleteTodos] = useState([
+		{ task: "遊び", category: "お家" },
+		{ task: "買い物", category: "お家" },
+	]);
 	const closeModal = () => {
 		setShow(false);
 	};
-	const onChangeTodoText = (event) => setTodoText(event.target.value);
 	// 追加ボタン
 	const onClickAdd = () => {
-		if (todoText === "") return;
+		if (todoText.task === "") return;
+		console.log(todoText);
 		const newTodos = [...incompleteTodos, todoText];
 		setIncompleteTodos(newTodos);
 		setTodoText("");
+		setShow(false);
 	};
-
 	return (
 		<>
 			<Header />
@@ -43,6 +55,7 @@ function App() {
 						incompleteTodos={incompleteTodos}
 						setIncompleteTodos={setIncompleteTodos}
 						setCompleteTodos={setCompleteTodos}
+						completeTodos={completeTodos}
 					/>
 					<Box2
 						title="Progress"
@@ -54,6 +67,8 @@ function App() {
 						title="Complete"
 						color="#FFCA99"
 						completeTodos={completeTodos}
+						setIncompleteTodos={setIncompleteTodos}
+						incompleteTodos={incompleteTodos}
 						setCompleteTodos={setCompleteTodos}
 					/>
 				</Wrapper>
@@ -68,12 +83,22 @@ function App() {
 						<ModalBox>
 							<ModalItem>
 								<ModalTitle>TODO</ModalTitle>
-								<ModalInput value={todoText} onChange={onChangeTodoText} />
+								<ModalInput
+									value={todoText.task}
+									onChange={(e) =>
+										setTodoText({ ...todoText, task: e.target.value })
+									}
+								/>
 							</ModalItem>
-							{/* <ModalItem>
+							<ModalItem>
 								<ModalTitle>CATEGORY</ModalTitle>
-								<ModalInput value={todoText.category} />
-							</ModalItem> */}
+								<ModalInput
+									value={todoText.category}
+									onChange={(e) =>
+										setTodoText({ ...todoText, category: e.target.value })
+									}
+								/>
+							</ModalItem>
 							<ModalSend onClick={onClickAdd}>POST</ModalSend>
 						</ModalBox>
 					</ModalContent>

@@ -1,27 +1,47 @@
 import styled from "styled-components";
-import IconCompleteImage from "../../images/icon-complete.png";
+import IconReturnImage from "../../images/icon-return.png";
 import { BoxTitle } from "../atoms/BoxTitle";
 
 export const Box3 = (props) => {
-	const { title, color, completeTodos, setCompleteTodos } = props;
+	const {
+		title,
+		color,
+		completeTodos,
+		setCompleteTodos,
+		incompleteTodos,
+		setIncompleteTodos,
+	} = props;
+	// 削除ボタン
 	const onClickDelete = (index) => {
 		const newTodos = [...completeTodos];
 		newTodos.splice(index, 1);
 		setCompleteTodos(newTodos);
 	};
+	// 戻るボタン
+	const onClickReturn = (index) => {
+		const newCompleteTodos = [...completeTodos];
+		newCompleteTodos.splice(index, 1);
+		const newInCompleteTodos = [...incompleteTodos, completeTodos[index]];
+		setCompleteTodos(newCompleteTodos);
+		setIncompleteTodos(newInCompleteTodos);
+	};
 	const todoList = completeTodos.map((todo, index) => (
 		<Item key={index}>
 			<ItemContent>
-				<ItemTitle>{todo}</ItemTitle>
-				{/* <ItemTags>
+				<ItemTitle>{todo.task}</ItemTitle>
+				<ItemTags>
 					<ItemTag>{todo.category}</ItemTag>
-				</ItemTags> */}
+				</ItemTags>
 			</ItemContent>
 			<ItemSubcontent>
 				<ItemComplete>
-					<img src={IconCompleteImage} alt="" />
+					<img
+						src={IconReturnImage}
+						alt="Return"
+						onClick={() => onClickReturn(index)}
+					/>
 				</ItemComplete>
-				<ItemDelete onClick={onClickDelete}>delete...</ItemDelete>
+				<ItemDelete onClick={() => onClickDelete(index)}>delete...</ItemDelete>
 			</ItemSubcontent>
 		</Item>
 	));
@@ -34,8 +54,8 @@ export const Box3 = (props) => {
 };
 const SBox = styled.div``;
 const ItemComplete = styled.div`
-	width: 30px;
-	height: 30px;
+	width: 25px;
+	height: 25px;
 `;
 const List = styled.ul`
 	margin-top: 30px;
@@ -64,6 +84,8 @@ const ItemTags = styled.div`
 `;
 const ItemTag = styled.div`
 	background-color: #1d8ac7;
+	font-weight: bold;
+
 	font-size: 12px;
 	color: #fff;
 	padding: 8px 15px;
