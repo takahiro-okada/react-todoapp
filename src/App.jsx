@@ -1,87 +1,86 @@
 import "./App.css";
 import styled from "styled-components";
-import IconCompleteImage from "./images/icon-complete.png";
+import { Header } from "./components/organisms/Header";
+import { Box1 } from "./components/organisms/Box1";
+import { Box2 } from "./components/organisms/Box2";
+import { Box3 } from "./components/organisms/Box3";
+import React, { useState } from "react";
+import IconModalClose from "./images/icon-modalclose.png";
 
 function App() {
+	const [show, setShow] = useState();
+	const openModal = () => {
+		setShow(true);
+	};
+	const [todoText, setTodoText] = useState("");
+	const [incompleteTodos, setIncompleteTodos] = useState(["aaa", "bbbbbb"]);
+	const [progressTodos, setProgressTodos] = useState([
+		"開発中のため",
+		"動きません",
+		"Drag and Drop させたい",
+	]);
+	const [completeTodos, setCompleteTodos] = useState(["eee", "fff"]);
+	const closeModal = () => {
+		setShow(false);
+	};
+	const onChangeTodoText = (event) => setTodoText(event.target.value);
+	// 追加ボタン
+	const onClickAdd = () => {
+		if (todoText === "") return;
+		const newTodos = [...incompleteTodos, todoText];
+		setIncompleteTodos(newTodos);
+		setTodoText("");
+	};
+
 	return (
 		<>
-			<Header>
-				<div className="header__inner">
-					<HeaderLogo>Osyare Na ToDo App</HeaderLogo>
-				</div>
-			</Header>
+			<Header />
 			<Container>
-				<main>
-					<Wrapper>
-						<Box>
-							<BoxTitle>
-								<TitleCircle></TitleCircle>
-								<Title>Todo</Title>
-							</BoxTitle>
-							<List>
-								<Item>
-									<ItemContent>
-										<ItemTitle>トイレ掃除</ItemTitle>
-										<ItemTags>
-											<ItemTag>家のこと</ItemTag>
-										</ItemTags>
-									</ItemContent>
-									<ItemSubcontent>
-										<ItemComplete>
-											<img src={IconCompleteImage} alt="" />
-										</ItemComplete>
-										<ItemDelete>delete...</ItemDelete>
-									</ItemSubcontent>
-								</Item>
-							</List>
-						</Box>
-						<Box>
-							<BoxTitle>
-								<TitleCircle></TitleCircle>
-								<Title>Todo</Title>
-							</BoxTitle>
-							<List>
-								<Item>
-									<ItemContent>
-										<ItemTitle>トイレ掃除</ItemTitle>
-										<ItemTags>
-											<ItemTag>家のこと</ItemTag>
-										</ItemTags>
-									</ItemContent>
-									<ItemSubcontent>
-										<ItemComplete>
-											<img src={IconCompleteImage} alt="" />
-										</ItemComplete>
-										<ItemDelete>delete...</ItemDelete>
-									</ItemSubcontent>
-								</Item>
-							</List>
-						</Box>
-						<Box>
-							<BoxTitle>
-								<TitleCircle></TitleCircle>
-								<Title>Todo</Title>
-							</BoxTitle>
-							<List>
-								<Item>
-									<ItemContent>
-										<ItemTitle>トイレ掃除</ItemTitle>
-										<ItemTags>
-											<ItemTag>家のこと</ItemTag>
-										</ItemTags>
-									</ItemContent>
-									<ItemSubcontent>
-										<ItemComplete>
-											<img src={IconCompleteImage} alt="" />
-										</ItemComplete>
-										<ItemDelete>delete...</ItemDelete>
-									</ItemSubcontent>
-								</Item>
-							</List>
-						</Box>
-					</Wrapper>
-				</main>
+				<Wrapper>
+					<Box1
+						title="Todo"
+						color="#CEFFED"
+						incompleteTodos={incompleteTodos}
+						setIncompleteTodos={setIncompleteTodos}
+						setCompleteTodos={setCompleteTodos}
+					/>
+					<Box2
+						title="Progress"
+						color="#F4FFB1"
+						progressTodos={progressTodos}
+						setProgressTodos={setProgressTodos}
+					/>
+					<Box3
+						title="Complete"
+						color="#FFCA99"
+						completeTodos={completeTodos}
+						setCompleteTodos={setCompleteTodos}
+					/>
+				</Wrapper>
 			</Container>
+			<ModalButton onClick={openModal}>＋</ModalButton>
+			{show ? (
+				<ModalOverray>
+					<ModalContent>
+						<ModalCloseButton onClick={closeModal}>
+							<img src={IconModalClose} alt="" />
+						</ModalCloseButton>
+						<ModalBox>
+							<ModalItem>
+								<ModalTitle>TODO</ModalTitle>
+								<ModalInput value={todoText} onChange={onChangeTodoText} />
+							</ModalItem>
+							{/* <ModalItem>
+								<ModalTitle>CATEGORY</ModalTitle>
+								<ModalInput value={todoText.category} />
+							</ModalItem> */}
+							<ModalSend onClick={onClickAdd}>POST</ModalSend>
+						</ModalBox>
+					</ModalContent>
+				</ModalOverray>
+			) : (
+				console.log("test")
+			)}
 		</>
 	);
 }
@@ -92,79 +91,88 @@ const Container = styled.div`
 	max-width: 100%;
 	margin: 60px auto 0;
 `;
-const Header = styled.div`
-	background-color: #031d7c;
-	padding: 10px 30px;
-`;
-const HeaderLogo = styled.h1`
-	color: #fff;
-	font-size: 32px;
-`;
-
 const Wrapper = styled.div`
 	display: grid;
 	gap: 30px;
 	grid-template-columns: 1fr 1fr 1fr;
 `;
-const Box = styled.div``;
-const ItemComplete = styled.div`
-	width: 30px;
-	height: 30px;
+
+const ModalButton = styled.button`
+	font-size: 50px;
+	text-align: center;
+	color: #fff;
+	background-color: #eb6100;
+	border-radius: 50%;
+	line-height: 100px;
+	width: 100px;
+	height: 100px;
+	padding: 0;
+	position: absolute;
+	right: 50px;
+	bottom: 50px;
+	cursor: pointer;
+	transition: opacity 0.3s;
+	:hover {
+		opacity: 0.7;
+	}
 `;
-const BoxTitle = styled.div`
+const ModalContent = styled.div`
 	position: relative;
+	z-index: 2;
+	width: 70%;
+	height: 80%;
+	padding: 1em;
+	background: #fff;
 `;
-const Title = styled.h2`
+const ModalOverray = styled.div`
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.5);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+`;
+const ModalCloseButton = styled.button`
+	position: absolute;
+	top: 20px;
+	right: 20px;
+`;
+const ModalBox = styled.div`
+	padding: 60px 30px;
+`;
+const ModalItem = styled.div`
+	margin-top: 20px;
+`;
+const ModalTitle = styled.p`
+	font-family: "Staatliches", cursive;
 	font-size: 40px;
 	font-weight: bold;
-	padding-left: 20px;
+	letter-spacing: 0.1em; ;
 `;
-const TitleCircle = styled.span`
-	width: 55px;
-	height: 55px;
-	background-color: #ceffed;
-	border-radius: 100%;
-	display: block;
-	position: absolute;
-	z-index: -1;
-	position: absolute;
-	top: 50%;
-	left: 0;
-	transform: translate(0%, -50%);
-`;
-const List = styled.ul`
-	margin-top: 30px;
-`;
-const Item = styled.li`
-	display: flex;
-	padding: 10px;
-	box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
-`;
-const ItemContent = styled.div`
-	width: 80%;
-`;
-const ItemSubcontent = styled.div`
-	width: 20%;
-	display: flex;
-	flex-direction: column;
-	justify-content: space-between;
-	align-items: center;
-`;
-const ItemTitle = styled.div`
-	font-size: 18px;
+const ModalInput = styled.input`
 	font-weight: bold;
+	background-color: #c4c4c4;
+	font-size: 32px;
+	line-height: 2;
+	width: 100%;
+	padding: 2px 10px;
 `;
-const ItemTags = styled.div`
-	margin-top: 10px;
-`;
-const ItemTag = styled.div`
-	background-color: #1d8ac7;
-	font-size: 12px;
-	color: #fff;
-	padding: 8px 15px;
-	border-radius: 20px;
-	width: fit-content;
-`;
-const ItemDelete = styled.div`
-	color: red;
+const ModalSend = styled.button`
+	display: block;
+	margin-top: 30px;
+	margin-left: auto;
+	max-width: 200px;
+	text-align: center;
+	font-weight: bold;
+	background-color: orange;
+	font-size: 32px;
+	line-height: 2;
+	width: 100%;
+	padding: 2px 10px;
+	:hover {
+		opacity: 0.7;
+	}
 `;
