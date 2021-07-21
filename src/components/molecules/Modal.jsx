@@ -1,33 +1,48 @@
 import styled from "styled-components";
-import IconModalClose from "../../images/icon-modalclose.png";
+import { ModalCloseButton } from "../atoms/ModalCloseButton";
 
 export const Modal = (props) => {
-	const closeModal = () => {
-		props.setShow(false);
-	};
-	const { todoText, setTodoText, incompleteTodos, setIncompleteTodos } = props;
-	const onChangeTodoText = (event) => setTodoText(event.target.value);
+	const {
+		todoText,
+		setTodoText,
+		incompleteTodos,
+		setIncompleteTodos,
+		setShow,
+	} = props;
 	const onClickAdd = () => {
+		if (todoText.task === "" && todoText.category === "") return;
+		console.log(todoText.task);
+		console.log(todoText.category);
 		const newTodos = [...incompleteTodos, todoText];
 		setIncompleteTodos(newTodos);
+		setTodoText("");
+		setShow(false);
 	};
 	if (props.show) {
 		return (
 			<>
 				<ModalOverray>
 					<ModalContent>
-						<ModalCloseButton onClick={closeModal}>
-							<img src={IconModalClose} alt="" />
-						</ModalCloseButton>
+						<ModalCloseButton setShow={setShow} />
 						<ModalBox>
 							<ModalItem>
 								<ModalTitle>TODO</ModalTitle>
-								<ModalInput value={todoText} onChange={onChangeTodoText} />
+								<ModalInput
+									value={todoText.task}
+									onChange={(e) =>
+										setTodoText({ ...todoText, task: e.target.value })
+									}
+								/>
 							</ModalItem>
-							{/* <ModalItem>
+							<ModalItem>
 								<ModalTitle>CATEGORY</ModalTitle>
-								<ModalInput value={todoText.category} />
-							</ModalItem> */}
+								<ModalInput
+									value={todoText.category}
+									onChange={(e) =>
+										setTodoText({ ...todoText, category: e.target.value })
+									}
+								/>
+							</ModalItem>
 							<ModalSend onClick={onClickAdd}>POST</ModalSend>
 						</ModalBox>
 					</ModalContent>
@@ -56,11 +71,6 @@ const ModalOverray = styled.div`
 	display: flex;
 	align-items: center;
 	justify-content: center;
-`;
-const ModalCloseButton = styled.button`
-	position: absolute;
-	top: 20px;
-	right: 20px;
 `;
 const ModalBox = styled.div`
 	padding: 60px 30px;
