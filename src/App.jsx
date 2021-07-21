@@ -2,16 +2,19 @@ import "./App.css";
 import styled from "styled-components";
 import { Header } from "./components/organisms/Header";
 import { Modal } from "./components/molecules/Modal";
-import { Box1 } from "./components/organisms/Box1";
-import { Box2 } from "./components/organisms/Box2";
-import { Box3 } from "./components/organisms/Box3";
+import { Box } from "./components/organisms/Box";
+import { ModalButton } from "./components/atoms/ModalButton";
+import IconReturnImage from "./images/icon-return.png";
+import IconCompleteImage from "./images/icon-complete.png";
 import React, { useState } from "react";
 
 export const App = () => {
+	// モーダル用
 	const [show, setShow] = useState();
 	const openModal = () => {
 		setShow(true);
 	};
+	// 状態管理
 	const [todoText, setTodoText] = useState([
 		{
 			task: "",
@@ -23,46 +26,105 @@ export const App = () => {
 		{ task: "掃除", category: "お家" },
 		{ task: "散歩", category: "お家" },
 	]);
-	const [progressTodos, setProgressTodos] = useState([
-		{ task: "開発中", category: "React" },
-		{ task: "ドラッグアンドドロップで", category: "React" },
-		{ task: "動かしたいぜ", category: "React" },
-	]);
 	const [completeTodos, setCompleteTodos] = useState([
 		{ task: "遊び", category: "お家" },
 		{ task: "買い物", category: "お家" },
 	]);
+	// タスク数
+	const incompleteTodosLength = incompleteTodos.length;
+	const completeTodosLength = completeTodos.length;
+	// 完了ボタン
+	const onClickComplete = (index) => {
+		const newIncompleteTodos = [...incompleteTodos];
+		newIncompleteTodos.splice(index, 1);
+		const newCompleteTodos = [...completeTodos, incompleteTodos[index]];
+		setIncompleteTodos(newIncompleteTodos);
+		setCompleteTodos(newCompleteTodos);
+	};
+	// 戻るボタン
+	const onClickReturn = (index) => {
+		const newCompleteTodos = [...completeTodos];
+		newCompleteTodos.splice(index, 1);
+		const newInCompleteTodos = [...incompleteTodos, completeTodos[index]];
+		setCompleteTodos(newCompleteTodos);
+		setIncompleteTodos(newInCompleteTodos);
+	};
+	// 削除ボタン
+	const onClickIncompleteDelete = (index) => {
+		const newTodos = [...incompleteTodos];
+		newTodos.splice(index, 1);
+		setIncompleteTodos(newTodos);
+	};
+	const onClickCompleteDelete = (index) => {
+		const newTodos = [...completeTodos];
+		newTodos.splice(index, 1);
+		setCompleteTodos(newTodos);
+	};
+	// 未完了タスクのテーブル
+	const incompleteList = incompleteTodos.map((todo, index) => (
+		<SItem key={index}>
+			<SItemContent>
+				<SItemTitle>{todo.task}</SItemTitle>
+				<SItemTags>
+					<SItemTag>{todo.category}</SItemTag>
+				</SItemTags>
+			</SItemContent>
+			<SItemSubcontent>
+				<SItemComplete onClick={() => onClickComplete(index)}>
+					<img src={IconCompleteImage} alt="Complete" />
+				</SItemComplete>
+				<SItemDelete onClick={() => onClickIncompleteDelete(index)}>
+					delete...
+				</SItemDelete>
+			</SItemSubcontent>
+		</SItem>
+	));
+	// 完了タスクのテーブル
+	const completeTodosList = completeTodos.map((todo, index) => (
+		<SItem key={index}>
+			<SItemContent>
+				<SItemTitle>{todo.task}</SItemTitle>
+				<SItemTags>
+					<SItemTag>{todo.category}</SItemTag>
+				</SItemTags>
+			</SItemContent>
+			<SItemSubcontent>
+				<SItemComplete>
+					<img
+						src={IconReturnImage}
+						alt="Return"
+						onClick={() => onClickReturn(index)}
+					/>
+				</SItemComplete>
+				<SItemDelete onClick={() => onClickCompleteDelete(index)}>
+					delete...
+				</SItemDelete>
+			</SItemSubcontent>
+		</SItem>
+	));
 
 	return (
 		<>
 			<Header />
-			<Container>
-				<Wrapper>
-					<Box1
+			<SContainer>
+				<SWrapper>
+					<Box
 						title="Todo"
 						color="#CEFFED"
+						todoList={incompleteList}
 						incompleteTodos={incompleteTodos}
-						setIncompleteTodos={setIncompleteTodos}
-						setCompleteTodos={setCompleteTodos}
-						completeTodos={completeTodos}
+						taskLength={incompleteTodosLength}
 					/>
-					<Box2
-						title="Progress"
-						color="#F4FFB1"
-						progressTodos={progressTodos}
-						setProgressTodos={setProgressTodos}
-					/>
-					<Box3
+					<Box
 						title="Complete"
 						color="#FFCA99"
 						completeTodos={completeTodos}
-						setIncompleteTodos={setIncompleteTodos}
-						incompleteTodos={incompleteTodos}
-						setCompleteTodos={setCompleteTodos}
+						todoList={completeTodosList}
+						taskLength={completeTodosLength}
 					/>
-				</Wrapper>
-			</Container>
-			<ModalButton onClick={openModal}>＋</ModalButton>
+				</SWrapper>
+			</SContainer>
+			<ModalButton openModal={openModal} setShow={setShow} />
 			<Modal
 				setShow={setShow}
 				todoText={todoText}
@@ -75,33 +137,69 @@ export const App = () => {
 	);
 };
 
-const Container = styled.div`
+const SContainer = styled.div`
 	width: 1080px;
 	max-width: 100%;
 	margin: 60px auto 0;
 `;
-const Wrapper = styled.div`
+const SWrapper = styled.div`
 	display: grid;
 	gap: 30px;
 	grid-template-columns: 1fr 1fr 1fr;
 `;
-
-const ModalButton = styled.button`
-	font-size: 50px;
-	text-align: center;
-	color: #fff;
-	background-color: #eb6100;
-	border-radius: 50%;
-	line-height: 100px;
-	width: 100px;
-	height: 100px;
-	padding: 0;
-	position: absolute;
-	right: 50px;
-	bottom: 50px;
-	cursor: pointer;
-	transition: opacity 0.3s;
-	:hover {
-		opacity: 0.7;
+const SItemComplete = styled.div`
+	width: 30px;
+	height: 30px;
+	transition: 1s all;
+	&:active {
+		background-color: red;
+		border-radius: 100px;
 	}
 `;
+const SItem = styled.li`
+	display: flex;
+	padding: 10px;
+	box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+`;
+const SItemContent = styled.div`
+	width: 80%;
+`;
+const SItemSubcontent = styled.div`
+	width: 20%;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	align-items: center;
+`;
+const SItemTitle = styled.div`
+	font-size: 18px;
+	font-weight: bold;
+`;
+const SItemTags = styled.div`
+	margin-top: 10px;
+`;
+const SItemTag = styled.div`
+	background-color: #1d8ac7;
+	font-weight: bold;
+	font-size: 12px;
+	color: #fff;
+	padding: 8px 15px;
+	border-radius: 20px;
+	width: fit-content;
+`;
+const SItemDelete = styled.div`
+	color: red;
+`;
+
+// 今は使わないので一旦ここにおいておく
+// const [progressTodos, setProgressTodos] = useState([
+// 	{ task: "開発中", category: "React" },
+// 	{ task: "ドラッグアンドドロップで", category: "React" },
+// 	{ task: "動かしたいぜ", category: "React" },
+// ]);
+// {/* <Box2
+//   title="Progress"
+//   color="#F4FFB1"
+//   progressTodos={progressTodos}
+//   setProgressTodos={setProgressTodos}
+// /> */}

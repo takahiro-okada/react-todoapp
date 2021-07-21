@@ -21,39 +21,39 @@ export const Modal = (props) => {
 	if (props.show) {
 		return (
 			<>
-				<ModalOverray>
-					<ModalContent>
+				<SModalOverray>
+					<SModalContent>
 						<ModalCloseButton setShow={setShow} />
-						<ModalBox>
-							<ModalItem>
-								<ModalTitle>TODO</ModalTitle>
-								<ModalInput
+						<SModalBox>
+							<SModalItem>
+								<SModalTitle>TODO</SModalTitle>
+								<SModalInput
 									value={todoText.task}
 									onChange={(e) =>
 										setTodoText({ ...todoText, task: e.target.value })
 									}
 								/>
-							</ModalItem>
-							<ModalItem>
-								<ModalTitle>CATEGORY</ModalTitle>
-								<ModalInput
+							</SModalItem>
+							<SModalItem>
+								<SModalTitle>CATEGORY</SModalTitle>
+								<SModalInput
 									value={todoText.category}
 									onChange={(e) =>
 										setTodoText({ ...todoText, category: e.target.value })
 									}
 								/>
-							</ModalItem>
-							<ModalSend onClick={onClickAdd}>POST</ModalSend>
-						</ModalBox>
-					</ModalContent>
-				</ModalOverray>
+							</SModalItem>
+							<SModalSend onClick={onClickAdd}>POST</SModalSend>
+						</SModalBox>
+					</SModalContent>
+				</SModalOverray>
 			</>
 		);
 	} else {
 		return null;
 	}
 };
-const ModalContent = styled.div`
+const SModalContent = styled.div`
 	position: relative;
 	z-index: 2;
 	width: 70%;
@@ -61,7 +61,7 @@ const ModalContent = styled.div`
 	padding: 1em;
 	background: #fff;
 `;
-const ModalOverray = styled.div`
+const SModalOverray = styled.div`
 	position: fixed;
 	top: 0;
 	left: 0;
@@ -72,19 +72,19 @@ const ModalOverray = styled.div`
 	align-items: center;
 	justify-content: center;
 `;
-const ModalBox = styled.div`
+const SModalBox = styled.div`
 	padding: 60px 30px;
 `;
-const ModalItem = styled.div`
+const SModalItem = styled.div`
 	margin-top: 20px;
 `;
-const ModalTitle = styled.p`
+const SModalTitle = styled.p`
 	font-family: "Staatliches", cursive;
 	font-size: 40px;
 	font-weight: bold;
 	letter-spacing: 0.1em; ;
 `;
-const ModalInput = styled.input`
+const SModalInput = styled.input`
 	font-weight: bold;
 	background-color: #c4c4c4;
 	font-size: 32px;
@@ -92,7 +92,7 @@ const ModalInput = styled.input`
 	width: 100%;
 	padding: 2px 10px;
 `;
-const ModalSend = styled.button`
+const SModalSend = styled.button`
 	display: block;
 	margin-top: 30px;
 	margin-left: auto;
