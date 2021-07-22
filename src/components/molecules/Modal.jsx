@@ -10,9 +10,8 @@ export const Modal = (props) => {
 		setShow,
 	} = props;
 	const onClickAdd = () => {
-		if (todoText.task === "" && todoText.category === "") return;
-		console.log(todoText.task);
-		console.log(todoText.category);
+		//ガード文
+		if (todoText.task === undefined || todoText.category === undefined) return;
 		const newTodos = [...incompleteTodos, todoText];
 		setIncompleteTodos(newTodos);
 		setTodoText("");
