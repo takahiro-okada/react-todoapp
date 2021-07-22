@@ -102,7 +102,6 @@ export const App = () => {
 			</SItemSubcontent>
 		</SItem>
 	));
-
 	return (
 		<>
 			<Header />
