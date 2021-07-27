@@ -8,6 +8,7 @@ export const Modal = (props) => {
 		incompleteTodos,
 		setIncompleteTodos,
 		setShow,
+		show,
 	} = props;
 	const onClickAdd = () => {
 		//ガード文
@@ -17,7 +18,7 @@ export const Modal = (props) => {
 		setTodoText("");
 		setShow(false);
 	};
-	if (props.show) {
+	if (show) {
 		return (
 			<>
 				<SModalOverray>

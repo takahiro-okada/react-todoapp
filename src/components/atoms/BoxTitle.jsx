@@ -30,7 +30,6 @@ const STitleCircle = styled.span`
 	display: block;
 	position: absolute;
 	z-index: -1;
-	position: absolute;
 	top: 50%;
 	left: 0;
 	transform: translate(0%, -50%);
