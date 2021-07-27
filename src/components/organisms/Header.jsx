@@ -31,6 +31,9 @@ export const Header = () => {
 								LOGOUT
 							</HeaderButton>
 						</HeaderItem>
+						<HeaderItem>
+							<LoginIcon src={user.picture}></LoginIcon>
+						</HeaderItem>
 					</HeaderNav>
 				</HeaderInner>
 			</SHeader>
@@ -80,4 +83,10 @@ const HeaderButton = styled.button`
 	color: #fff;
 	font-size: 32px;
 	padding: 0 20px;
+`;
+const LoginIcon = styled.img`
+	width: 40px;
+	height: 40px;
+	border-radius: 50%;
+	object-fit: cover;
 `;
