@@ -3,6 +3,7 @@ import { Header } from "../components/organisms/Header";
 import { Home } from "../Home";
 import { List } from "../List";
 import { Trash } from "../Trash";
+import { Page404 } from "../Page404";
 import styled from "styled-components";
 
 export const Router = () => {
@@ -19,6 +20,9 @@ export const Router = () => {
 					</Route>
 					<Route exact path="/trash">
 						<Trash />
+					</Route>
+					<Route path="/*">
+						<Page404 />
 					</Route>
 				</Switch>
 			</SContainer>
