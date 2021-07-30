@@ -10,7 +10,7 @@ ReactDOM.render(
 	<Auth0Provider
 		domain="dev-9jp-2yxk.jp.auth0.com"
 		clientId="guhIXOHryY6O9zuNSeXmdwpZhQ6oEMc6"
-		redirectUri="https://main.dgyapkr61jdu7.amplifyapp.com/"
+		redirectUri="http://localhost:3000/"
 	>
 		<BrowserRouter>
 			<App />

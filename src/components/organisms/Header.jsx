@@ -1,8 +1,9 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import styled from "styled-components";
 import { useAuth0 } from "@auth0/auth0-react";
 
-export const Header = () => {
+export const Header = (props) => {
+	const test = ["aa", "bbb", "ccc"];
 	const { isLoading, isAuthenticated, error, user, loginWithRedirect, logout } =
 		useAuth0();
 
@@ -16,10 +17,14 @@ export const Header = () => {
 		return (
 			<SHeader>
 				<HeaderInner>
-					<HeaderLogo to="/">Osyare Na ToDo App</HeaderLogo>
+					<HeaderLogo to={{ pathname: "/", state: { test } }}>
+						Osyare Na ToDo App
+					</HeaderLogo>
 					<HeaderNav>
 						<HeaderItem>
-							<HeaderLink to="/list">LIST</HeaderLink>
+							<HeaderLink to={{ pathname: "/list", state: { test } }}>
+								LIST
+							</HeaderLink>
 						</HeaderItem>
 						<HeaderItem>
 							<HeaderLink to="/trash">TRASH</HeaderLink>

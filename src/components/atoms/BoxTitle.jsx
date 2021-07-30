@@ -4,7 +4,7 @@ export const BoxTitle = (props) => {
 	const { taskLength } = props;
 	return (
 		<SBoxTitle>
-			<STitleCircle></STitleCircle>
+			<STitleCircle color={props.color}></STitleCircle>
 			<STitle>{props.title}</STitle>
 			<STitleNumber>{taskLength}</STitleNumber>
 		</SBoxTitle>

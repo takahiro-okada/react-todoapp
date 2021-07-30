@@ -6,6 +6,7 @@ import { ModalButton } from "./components/atoms/ModalButton";
 import IconReturnImage from "./images/icon-return.png";
 import IconCompleteImage from "./images/icon-complete.png";
 import React, { useState } from "react";
+import toast, { Toaster } from "react-hot-toast";
 
 export const List = () => {
 	// モーダル用
@@ -14,12 +15,10 @@ export const List = () => {
 		setShow(true);
 	};
 	// 状態管理
-	const [todoText, setTodoText] = useState([
-		{
-			task: "",
-			category: "",
-		},
-	]);
+	const [todoText, setTodoText] = useState({
+		task: "",
+		category: "",
+	});
 	const [incompleteTodos, setIncompleteTodos] = useState([
 		{ task: "メール処理", category: "お仕事" },
 		{ task: "掃除", category: "お家" },
@@ -34,6 +33,7 @@ export const List = () => {
 	const completeTodosLength = completeTodos.length;
 	// 完了ボタン
 	const onClickComplete = (index) => {
+		toast("GOOD JOB!!!!!!!!!!");
 		const newIncompleteTodos = [...incompleteTodos];
 		newIncompleteTodos.splice(index, 1);
 		const newCompleteTodos = [...completeTodos, incompleteTodos[index]];
@@ -50,11 +50,13 @@ export const List = () => {
 	};
 	// 削除ボタン
 	const onClickIncompleteDelete = (index) => {
+		toast("SEE YOU FOREVER");
 		const newTodos = [...incompleteTodos];
 		newTodos.splice(index, 1);
 		setIncompleteTodos(newTodos);
 	};
 	const onClickCompleteDelete = (index) => {
+		toast("SEE YOU FOREVER");
 		const newTodos = [...completeTodos];
 		newTodos.splice(index, 1);
 		setCompleteTodos(newTodos);
@@ -95,6 +97,7 @@ export const List = () => {
 						onClick={() => onClickReturn(index)}
 					/>
 				</SItemComplete>
+				<Toaster />
 				<SItemDelete onClick={() => onClickCompleteDelete(index)}>
 					delete...
 				</SItemDelete>
