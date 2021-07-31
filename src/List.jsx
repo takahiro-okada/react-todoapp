@@ -27,9 +27,6 @@ export const List = () => {
 		{ task: "遊び", category: "お家" },
 		{ task: "買い物", category: "お家" },
 	]);
-	// タスク数
-	const incompleteTodosLength = incompleteTodos.length;
-	const completeTodosLength = completeTodos.length;
 	// 完了ボタン
 	const onClickComplete = (index) => {
 		toast("GOOD JOB!!!!!!!!!!");
@@ -67,22 +64,17 @@ export const List = () => {
 					title="Todo"
 					color="#CEFFED"
 					taskList={incompleteTodos}
-					taskLength={incompleteTodosLength}
 					status={STATUS.complete}
 					onClickComplete={onClickComplete}
 					onClickIncompleteDelete={onClickIncompleteDelete}
-					onClickCompleteDelete={onClickCompleteDelete}
 				/>
 				<Box
 					title="Complete"
 					color="#FFCA99"
 					taskList={completeTodos}
-					taskLength={completeTodosLength}
 					status={STATUS.incomplete}
 					onClickReturn={onClickReturn}
-					onClickComplete={onClickComplete}
 					onClickCompleteDelete={onClickCompleteDelete}
-					onClickIncompleteDelete={onClickIncompleteDelete}
 				/>
 			</SWrapper>
 			<ModalButton openModal={openModal} setShow={setShow} />

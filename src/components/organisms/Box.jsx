@@ -9,12 +9,13 @@ export const Box = (props) => {
 		title,
 		color,
 		status,
-		taskLength,
 		taskList,
 		onClickComplete,
 		onClickReturn,
 		onClickIncompleteDelete,
 	} = props;
+	// タスク数
+	const taskLength = taskList.length;
 	const todoList = taskList.map((todo, index) => (
 		<SItem key={index}>
 			<SItemContent>
