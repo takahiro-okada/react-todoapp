@@ -3,10 +3,9 @@ import styled from "styled-components";
 import { Modal } from "./components/molecules/Modal";
 import { Box } from "./components/organisms/Box";
 import { ModalButton } from "./components/atoms/ModalButton";
-import IconReturnImage from "./images/icon-return.png";
-import IconCompleteImage from "./images/icon-complete.png";
 import React, { useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
+import { STATUS } from "./const";
 
 export const List = () => {
 	// モーダル用
@@ -61,65 +60,29 @@ export const List = () => {
 		newTodos.splice(index, 1);
 		setCompleteTodos(newTodos);
 	};
-	// 未完了タスクのテーブル
-	const incompleteList = incompleteTodos.map((todo, index) => (
-		<SItem key={index}>
-			<SItemContent>
-				<SItemTitle>{todo.task}</SItemTitle>
-				<SItemTags>
-					<SItemTag>{todo.category}</SItemTag>
-				</SItemTags>
-			</SItemContent>
-			<SItemSubcontent>
-				<SItemComplete onClick={() => onClickComplete(index)}>
-					<img src={IconCompleteImage} alt="Complete" />
-				</SItemComplete>
-				<SItemDelete onClick={() => onClickIncompleteDelete(index)}>
-					delete...
-				</SItemDelete>
-			</SItemSubcontent>
-		</SItem>
-	));
-	// 完了タスクのテーブル
-	const completeTodosList = completeTodos.map((todo, index) => (
-		<SItem key={index}>
-			<SItemContent>
-				<SItemTitle>{todo.task}</SItemTitle>
-				<SItemTags>
-					<SItemTag>{todo.category}</SItemTag>
-				</SItemTags>
-			</SItemContent>
-			<SItemSubcontent>
-				<SItemComplete>
-					<img
-						src={IconReturnImage}
-						alt="Return"
-						onClick={() => onClickReturn(index)}
-					/>
-				</SItemComplete>
-				<Toaster />
-				<SItemDelete onClick={() => onClickCompleteDelete(index)}>
-					delete...
-				</SItemDelete>
-			</SItemSubcontent>
-		</SItem>
-	));
 	return (
 		<>
 			<SWrapper>
 				<Box
 					title="Todo"
 					color="#CEFFED"
-					todoList={incompleteList}
-					incompleteTodos={incompleteTodos}
+					taskList={incompleteTodos}
 					taskLength={incompleteTodosLength}
+					status={STATUS.complete}
+					onClickComplete={onClickComplete}
+					onClickIncompleteDelete={onClickIncompleteDelete}
+					onClickCompleteDelete={onClickCompleteDelete}
 				/>
 				<Box
 					title="Complete"
 					color="#FFCA99"
-					completeTodos={completeTodos}
-					todoList={completeTodosList}
+					taskList={completeTodos}
 					taskLength={completeTodosLength}
+					status={STATUS.incomplete}
+					onClickReturn={onClickReturn}
+					onClickComplete={onClickComplete}
+					onClickCompleteDelete={onClickCompleteDelete}
+					onClickIncompleteDelete={onClickIncompleteDelete}
 				/>
 			</SWrapper>
 			<ModalButton openModal={openModal} setShow={setShow} />
@@ -138,49 +101,6 @@ const SWrapper = styled.div`
 	display: grid;
 	gap: 30px;
 	grid-template-columns: 1fr 1fr 1fr;
-`;
-const SItemComplete = styled.div`
-	width: 30px;
-	height: 30px;
-	transition: 1s all;
-	&:active {
-		background-color: red;
-		border-radius: 100px;
-	}
-`;
-const SItem = styled.li`
-	display: flex;
-	padding: 10px;
-	box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
-`;
-const SItemContent = styled.div`
-	width: 80%;
-`;
-const SItemSubcontent = styled.div`
-	width: 20%;
-	display: flex;
-	flex-direction: column;
-	justify-content: space-between;
-	align-items: center;
-`;
-const SItemTitle = styled.div`
-	font-size: 18px;
-	font-weight: bold;
-`;
-const SItemTags = styled.div`
-	margin-top: 10px;
-`;
-const SItemTag = styled.div`
-	background-color: #1d8ac7;
-	font-weight: bold;
-	font-size: 12px;
-	color: #fff;
-	padding: 8px 15px;
-	border-radius: 20px;
-	width: fit-content;
-`;
-const SItemDelete = styled.div`
-	color: red;
 `;
 
 // 今は使わないので一旦ここにおいておく
