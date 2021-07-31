@@ -12,6 +12,7 @@ export const Box = (props) => {
 		taskList,
 		onClickComplete,
 		onClickReturn,
+		onClickCompleteDelete,
 		onClickIncompleteDelete,
 	} = props;
 	// タスク数
@@ -34,9 +35,15 @@ export const Box = (props) => {
 						<img src={IconReturnImage} alt="Return" />
 					</SItemComplete>
 				)}
-				<SItemDelete onClick={() => onClickIncompleteDelete(index)}>
-					delete...
-				</SItemDelete>
+				{status === STATUS.complete ? (
+					<SItemDelete onClick={() => onClickIncompleteDelete(index)}>
+						delete...
+					</SItemDelete>
+				) : (
+					<SItemDelete onClick={() => onClickCompleteDelete(index)}>
+						delete...
+					</SItemDelete>
+				)}
 			</SItemSubcontent>
 		</SItem>
 	));

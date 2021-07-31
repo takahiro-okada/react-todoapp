@@ -57,6 +57,14 @@ export const List = () => {
 		newTodos.splice(index, 1);
 		setCompleteTodos(newTodos);
 	};
+	const onClickAdd = () => {
+		//ガード文
+		if (!todoText.task || !todoText.category) return;
+		const newTodos = [...incompleteTodos, todoText];
+		setIncompleteTodos(newTodos);
+		setTodoText("");
+		setShow(false);
+	};
 	return (
 		<>
 			<SWrapper>
@@ -80,11 +88,10 @@ export const List = () => {
 			<ModalButton openModal={openModal} setShow={setShow} />
 			<Modal
 				setShow={setShow}
+				onClickAdd={onClickAdd}
 				todoText={todoText}
 				show={show}
-				setTodoText={setTodoText}
 				incompleteTodos={incompleteTodos}
-				setIncompleteTodos={setIncompleteTodos}
 			/>
 		</>
 	);

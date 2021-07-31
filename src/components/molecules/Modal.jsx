@@ -2,22 +2,7 @@ import styled from "styled-components";
 import { ModalCloseButton } from "../atoms/ModalCloseButton";
 
 export const Modal = (props) => {
-	const {
-		todoText,
-		setTodoText,
-		incompleteTodos,
-		setIncompleteTodos,
-		setShow,
-		show,
-	} = props;
-	const onClickAdd = () => {
-		//ガード文
-		if (!todoText.task || !todoText.category) return;
-		const newTodos = [...incompleteTodos, todoText];
-		setIncompleteTodos(newTodos);
-		setTodoText("");
-		setShow(false);
-	};
+	const { todoText, setTodoText, setShow, show, onClickAdd } = props;
 	if (show) {
 		return (
 			<>
