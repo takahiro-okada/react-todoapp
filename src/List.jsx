@@ -4,7 +4,7 @@ import { Modal } from "./components/molecules/Modal";
 import { Box } from "./components/organisms/Box";
 import { ModalButton } from "./components/atoms/ModalButton";
 import React, { useState } from "react";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 import { STATUS } from "./const";
 
 export const List = () => {
@@ -88,6 +88,7 @@ export const List = () => {
 			<ModalButton openModal={openModal} setShow={setShow} />
 			<Modal
 				setShow={setShow}
+				setTodoText={setTodoText}
 				onClickAdd={onClickAdd}
 				todoText={todoText}
 				show={show}

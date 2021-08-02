@@ -4,6 +4,7 @@ export const ModalButton = (props) => {
 	const { openModal } = props;
 	return <SModalButton onClick={openModal}>＋</SModalButton>;
 };
+
 const SModalButton = styled.button`
 	font-size: 50px;
 	text-align: center;

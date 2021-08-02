@@ -1,15 +1,17 @@
 import styled from "styled-components";
+import { memo } from "react";
 
-export const BoxTitle = (props) => {
-	const { taskLength } = props;
+export const BoxTitle = memo((props) => {
+	console.log("aaaaa");
+	const { taskLength, color, title } = props;
 	return (
 		<SBoxTitle>
-			<STitleCircle color={props.color}></STitleCircle>
-			<STitle>{props.title}</STitle>
+			<STitleCircle color={color}></STitleCircle>
+			<STitle>{title}</STitle>
 			<STitleNumber>{taskLength}</STitleNumber>
 		</SBoxTitle>
 	);
-};
+});
 
 const SBoxTitle = styled.div`
 	position: relative;
