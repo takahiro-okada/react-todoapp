@@ -3,9 +3,10 @@ import styled from "styled-components";
 import { Modal } from "./components/molecules/Modal";
 import { Box } from "./components/organisms/Box";
 import { ModalButton } from "./components/atoms/ModalButton";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import toast from "react-hot-toast";
 import { STATUS } from "./const";
+import axios from "axios";
 
 export const List = () => {
 	// モーダル用
@@ -18,15 +19,14 @@ export const List = () => {
 		task: "",
 		category: "",
 	});
-	const [incompleteTodos, setIncompleteTodos] = useState([
-		{ task: "メール処理", category: "お仕事" },
-		{ task: "掃除", category: "お家" },
-		{ task: "散歩", category: "お家" },
-	]);
-	const [completeTodos, setCompleteTodos] = useState([
-		{ task: "遊び", category: "お家" },
-		{ task: "買い物", category: "お家" },
-	]);
+	useEffect(() => {
+		axios
+			.get("https://jsonplaceholder.typicode.com/todos")
+			.then((res) => setIncompleteTodos(res.data))
+			.catch((error) => console.log(error));
+	}, []);
+	const [incompleteTodos, setIncompleteTodos] = useState([]);
+	const [completeTodos, setCompleteTodos] = useState([]);
 	// 完了ボタン
 	const onClickComplete = (index) => {
 		toast("GOOD JOB!!!!!!!!!!");

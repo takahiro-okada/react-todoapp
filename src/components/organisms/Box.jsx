@@ -20,9 +20,9 @@ export const Box = (props) => {
 	const todoList = taskList.map((todo, index) => (
 		<SItem key={index}>
 			<SItemContent>
-				<SItemTitle>{todo.task}</SItemTitle>
+				<SItemTitle>{todo.title}</SItemTitle>
 				<SItemTags>
-					<SItemTag>{todo.category}</SItemTag>
+					<SItemTag>{todo.userId}</SItemTag>
 				</SItemTags>
 			</SItemContent>
 			<SItemSubcontent>
