@@ -3,8 +3,9 @@ import { BoxTitle } from "../atoms/BoxTitle";
 import IconCompleteImage from "../../images/icon-complete.png";
 import IconReturnImage from "../../images/icon-return.png";
 import { STATUS } from "../../const";
+import { memo } from "react";
 
-export const Box = (props) => {
+export const Box = memo((props) => {
 	const {
 		title,
 		color,
@@ -53,7 +54,7 @@ export const Box = (props) => {
 			<SList>{todoList}</SList>
 		</SBox>
 	);
-};
+});
 const SBox = styled.div``;
 const SList = styled.ul`
 	margin-top: 30px;

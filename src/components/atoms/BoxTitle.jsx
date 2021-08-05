@@ -2,7 +2,6 @@ import styled from "styled-components";
 import { memo } from "react";
 
 export const BoxTitle = memo((props) => {
-	console.log("aaaaa");
 	const { taskLength, color, title } = props;
 	return (
 		<SBoxTitle>

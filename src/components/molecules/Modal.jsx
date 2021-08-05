@@ -1,7 +1,10 @@
 import styled from "styled-components";
 import { ModalCloseButton } from "../atoms/ModalCloseButton";
+import { memo } from "react";
 
-export const Modal = (props) => {
+export const Modal = memo((props) => {
+	console.log(props);
+	console.log("aaaaa");
 	const { todoText, setTodoText, setShow, show, onClickAdd } = props;
 	if (show) {
 		return (
@@ -37,7 +40,7 @@ export const Modal = (props) => {
 	} else {
 		return null;
 	}
-};
+});
 const SModalContent = styled.div`
 	position: relative;
 	z-index: 2;

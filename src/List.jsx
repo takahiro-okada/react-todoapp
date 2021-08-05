@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { Modal } from "./components/molecules/Modal";
 import { Box } from "./components/organisms/Box";
 import { ModalButton } from "./components/atoms/ModalButton";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import toast from "react-hot-toast";
 import { STATUS } from "./const";
 import axios from "axios";
@@ -37,13 +37,13 @@ export const List = () => {
 		setCompleteTodos(newCompleteTodos);
 	};
 	// 戻るボタン
-	const onClickReturn = (index) => {
+	const onClickReturn = useCallback((index) => {
 		const newCompleteTodos = [...completeTodos];
 		newCompleteTodos.splice(index, 1);
 		const newInCompleteTodos = [...incompleteTodos, completeTodos[index]];
 		setCompleteTodos(newCompleteTodos);
 		setIncompleteTodos(newInCompleteTodos);
-	};
+	}, []);
 	// 削除ボタン
 	const onClickIncompleteDelete = (index) => {
 		toast("SEE YOU FOREVER");
@@ -57,14 +57,14 @@ export const List = () => {
 		newTodos.splice(index, 1);
 		setCompleteTodos(newTodos);
 	};
-	const onClickAdd = () => {
+	const onClickAdd = useCallback(() => {
 		//ガード文
 		if (!todoText.task || !todoText.category) return;
 		const newTodos = [...incompleteTodos, todoText];
 		setIncompleteTodos(newTodos);
 		setTodoText("");
 		setShow(false);
-	};
+	}, [todoText, setTodoText, incompleteTodos]);
 	return (
 		<>
 			<SWrapper>
