@@ -37,13 +37,13 @@ export const List = () => {
 		setCompleteTodos(newCompleteTodos);
 	};
 	// 戻るボタン
-	const onClickReturn = useCallback((index) => {
+	const onClickReturn = (index) => {
 		const newCompleteTodos = [...completeTodos];
 		newCompleteTodos.splice(index, 1);
 		const newInCompleteTodos = [...incompleteTodos, completeTodos[index]];
 		setCompleteTodos(newCompleteTodos);
 		setIncompleteTodos(newInCompleteTodos);
-	}, []);
+	};
 	// 削除ボタン
 	const onClickIncompleteDelete = (index) => {
 		toast("SEE YOU FOREVER");

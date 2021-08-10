@@ -10,7 +10,7 @@ ReactDOM.render(
 	<Auth0Provider
 		domain="dev-9jp-2yxk.jp.auth0.com"
 		clientId="guhIXOHryY6O9zuNSeXmdwpZhQ6oEMc6"
-		redirectUri="https://react-osyare-todoapp.vercel.app/"
+		redirectUri="https://localhost:3000/"
 	>
 		<BrowserRouter>
 			<App />
