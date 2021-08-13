@@ -59,7 +59,7 @@ export const List = () => {
 	};
 	const onClickAdd = useCallback(() => {
 		//ガード文
-		if (!todoText.task || !todoText.category) return;
+		if (!todoText.title || !todoText.userId) return;
 		const newTodos = [...incompleteTodos, todoText];
 		setIncompleteTodos(newTodos);
 		setTodoText("");

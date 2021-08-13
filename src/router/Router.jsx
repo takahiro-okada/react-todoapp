@@ -2,6 +2,7 @@ import { Route, Switch } from "react-router-dom";
 import { Header } from "../components/organisms/Header";
 import { Home } from "../Home";
 import { List } from "../List";
+import { Page } from "../Page";
 import { Trash } from "../Trash";
 import { Page404 } from "../Page404";
 import styled from "styled-components";
@@ -21,6 +22,7 @@ export const Router = () => {
 					<Route exact path="/trash">
 						<Trash />
 					</Route>
+					<Route path="/todo/:id" component={Page} />
 					<Route path="/*">
 						<Page404 />
 					</Route>

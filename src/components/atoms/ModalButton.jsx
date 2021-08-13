@@ -15,7 +15,7 @@ const SModalButton = styled.button`
 	width: 100px;
 	height: 100px;
 	padding: 0;
-	position: absolute;
+	position: fixed;
 	right: 50px;
 	bottom: 50px;
 	cursor: pointer;

@@ -1,11 +1,11 @@
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 import { BoxTitle } from "../atoms/BoxTitle";
 import IconCompleteImage from "../../images/icon-complete.png";
 import IconReturnImage from "../../images/icon-return.png";
 import { STATUS } from "../../const";
-import { memo } from "react";
 
-export const Box = memo((props) => {
+export const Box = (props) => {
 	const {
 		title,
 		color,
@@ -25,6 +25,9 @@ export const Box = memo((props) => {
 				<SItemTags>
 					<SItemTag>{todo.userId}</SItemTag>
 				</SItemTags>
+				<Link to={{ pathname: `todo/${index}`, state: { taskList } }}>
+					編集する
+				</Link>
 			</SItemContent>
 			<SItemSubcontent>
 				{status === STATUS.complete ? (
@@ -54,7 +57,7 @@ export const Box = memo((props) => {
 			<SList>{todoList}</SList>
 		</SBox>
 	);
-});
+};
 const SBox = styled.div``;
 const SList = styled.ul`
 	margin-top: 30px;

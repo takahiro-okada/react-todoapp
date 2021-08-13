@@ -3,8 +3,6 @@ import { ModalCloseButton } from "../atoms/ModalCloseButton";
 import { memo } from "react";
 
 export const Modal = memo((props) => {
-	console.log(props);
-	console.log("aaaaa");
 	const { todoText, setTodoText, setShow, show, onClickAdd } = props;
 	if (show) {
 		return (
@@ -16,18 +14,18 @@ export const Modal = memo((props) => {
 							<SModalItem>
 								<SModalTitle>TODO</SModalTitle>
 								<SModalInput
-									value={todoText.task}
+									value={todoText.title}
 									onChange={(e) =>
-										setTodoText({ ...todoText, task: e.target.value })
+										setTodoText({ ...todoText, title: e.target.value })
 									}
 								/>
 							</SModalItem>
 							<SModalItem>
 								<SModalTitle>CATEGORY</SModalTitle>
 								<SModalInput
-									value={todoText.category}
+									value={todoText.userId}
 									onChange={(e) =>
-										setTodoText({ ...todoText, category: e.target.value })
+										setTodoText({ ...todoText, userId: e.target.value })
 									}
 								/>
 							</SModalItem>
