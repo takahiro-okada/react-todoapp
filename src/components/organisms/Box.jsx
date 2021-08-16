@@ -51,7 +51,6 @@ export const Box = (props) => {
 			</SItemSubcontent>
 		</SItem>
 	));
-	console.log(taskList);
 	return (
 		<SBox>
 			<BoxTitle title={title} color={color} taskLength={taskLength} />

@@ -17,7 +17,6 @@ export const Page = (props) => {
 	const handleChange = (e) => {
 		setText({ ...targetTodo, title: e.target.value });
 		targetTodo.title = text.title;
-		console.log(taskList);
 	};
 	return (
 		<SBox>

@@ -7,8 +7,11 @@ import React, { useState, useEffect, useCallback } from "react";
 import toast from "react-hot-toast";
 import { STATUS } from "./const";
 import axios from "axios";
+import { useLocation } from "react-router-dom";
 
 export const List = () => {
+	const location = useLocation();
+	const { taskList } = location.state;
 	// モーダル用
 	const [show, setShow] = useState();
 	const openModal = () => {
@@ -21,7 +24,7 @@ export const List = () => {
 			.get("https://jsonplaceholder.typicode.com/todos")
 			.then((res) => setIncompleteTodos(res.data))
 			.catch((error) => console.log(error));
-	}, []);
+	}, [todoText]);
 	const [incompleteTodos, setIncompleteTodos] = useState([]);
 	const [completeTodos, setCompleteTodos] = useState([]);
 	// 完了ボタン
@@ -62,6 +65,9 @@ export const List = () => {
 		setTodoText("");
 		setShow(false);
 	}, [todoText, setTodoText, incompleteTodos]);
+	console.log("aaaaaaa");
+	console.log(taskList);
+	console.log("bbbbbbb");
 	return (
 		<>
 			<SWrapper>
