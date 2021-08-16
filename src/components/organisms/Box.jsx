@@ -25,7 +25,7 @@ export const Box = (props) => {
 				<SItemTags>
 					<SItemTag>{todo.userId}</SItemTag>
 				</SItemTags>
-				<Link to={{ pathname: `todo/${index}`, state: { taskList } }}>
+				<Link to={{ pathname: `todo/${index + 1}`, state: { taskList } }}>
 					編集する
 				</Link>
 			</SItemContent>
@@ -51,6 +51,7 @@ export const Box = (props) => {
 			</SItemSubcontent>
 		</SItem>
 	));
+	console.log(taskList);
 	return (
 		<SBox>
 			<BoxTitle title={title} color={color} taskLength={taskLength} />

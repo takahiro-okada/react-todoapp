@@ -22,9 +22,6 @@ export const Header = () => {
 							<HeaderLink to={{ pathname: "/list" }}>LIST</HeaderLink>
 						</HeaderItem>
 						<HeaderItem>
-							<HeaderLink to="/trash">TRASH</HeaderLink>
-						</HeaderItem>
-						<HeaderItem>
 							<HeaderButton
 								onClick={() => logout({ returnTo: window.location.origin })}
 							>

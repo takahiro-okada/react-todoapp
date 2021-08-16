@@ -3,7 +3,6 @@ import { Header } from "../components/organisms/Header";
 import { Home } from "../Home";
 import { List } from "../List";
 import { Page } from "../Page";
-import { Trash } from "../Trash";
 import { Page404 } from "../Page404";
 import styled from "styled-components";
 
@@ -19,10 +18,10 @@ export const Router = () => {
 					<Route exact path="/list">
 						<List />
 					</Route>
-					<Route exact path="/trash">
-						<Trash />
-					</Route>
-					<Route path="/todo/:id" component={Page} />
+					<Route
+						path="/todo/:id"
+						render={() => <Page title="Edit" color="#CEFFED" />}
+					/>
 					<Route path="/*">
 						<Page404 />
 					</Route>

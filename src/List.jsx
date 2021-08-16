@@ -15,10 +15,7 @@ export const List = () => {
 		setShow(true);
 	};
 	// 状態管理
-	const [todoText, setTodoText] = useState({
-		task: "",
-		category: "",
-	});
+	const [todoText, setTodoText] = useState("");
 	useEffect(() => {
 		axios
 			.get("https://jsonplaceholder.typicode.com/todos")
