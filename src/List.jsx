@@ -11,7 +11,7 @@ import { useLocation } from "react-router-dom";
 
 export const List = () => {
 	const location = useLocation();
-	const { taskList } = location.state;
+	const newTaskList = location.state;
 	// モーダル用
 	const [show, setShow] = useState();
 	const openModal = () => {
@@ -22,9 +22,16 @@ export const List = () => {
 	useEffect(() => {
 		axios
 			.get("https://jsonplaceholder.typicode.com/todos")
-			.then((res) => setIncompleteTodos(res.data))
+			.then((res) => {
+        // もしincompleteTodosに値が入っていなければ
+				if () {
+          // APIの値を代入する。
+					setIncompleteTodos(res.data);
+				}
+        // incompleteTodosに値が入っていれば返った値（newTaskList）を代入する
+			})
 			.catch((error) => console.log(error));
-	}, [todoText]);
+	}, []);
 	const [incompleteTodos, setIncompleteTodos] = useState([]);
 	const [completeTodos, setCompleteTodos] = useState([]);
 	// 完了ボタン
@@ -65,9 +72,6 @@ export const List = () => {
 		setTodoText("");
 		setShow(false);
 	}, [todoText, setTodoText, incompleteTodos]);
-	console.log("aaaaaaa");
-	console.log(taskList);
-	console.log("bbbbbbb");
 	return (
 		<>
 			<SWrapper>

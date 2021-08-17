@@ -5,8 +5,8 @@ import { useLocation, useParams } from "react-router-dom";
 import React, { useState } from "react";
 
 export const Page = (props) => {
-	const { id } = useParams();
 	const { title, color } = props;
+	const { id } = useParams();
 	const [text, setText] = useState("");
 	const location = useLocation();
 	const { taskList } = location.state;
@@ -48,20 +48,4 @@ const Input = styled.input`
 	background: papayawhip;
 	border: none;
 	border-radius: 3px;
-`;
-const Button = styled.button`
-	display: block;
-	margin-top: 30px;
-	margin-right: auto;
-	max-width: 200px;
-	text-align: center;
-	font-weight: bold;
-	background-color: orange;
-	font-size: 32px;
-	line-height: 2;
-	width: 100%;
-	padding: 2px 10px;
-	:hover {
-		opacity: 0.7;
-	}
 `;
