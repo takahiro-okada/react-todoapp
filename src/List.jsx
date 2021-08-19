@@ -23,12 +23,16 @@ export const List = () => {
 		axios
 			.get("https://jsonplaceholder.typicode.com/todos")
 			.then((res) => {
-        // もしincompleteTodosに値が入っていなければ
-				if () {
-          // APIの値を代入する。
+				if (!newTaskList) {
 					setIncompleteTodos(res.data);
+				} else {
+					// completedがfalseの要素のものだけ取得する
+					incompleteTodos.current = newTaskList.taskList;
+					setIncompleteTodos(incompleteTodos.current);
+					// completedがtrueの要素のものだけ取得する
+					completeTodos.current = newTaskList.taskList;
+					setCompleteTodos(completeTodos.current);
 				}
-        // incompleteTodosに値が入っていれば返った値（newTaskList）を代入する
 			})
 			.catch((error) => console.log(error));
 	}, []);
