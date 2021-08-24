@@ -1,8 +1,8 @@
 import styled from "styled-components";
 
 export const ModalButton = (props) => {
-	const { openModal } = props;
-	return <SModalButton onClick={openModal}>＋</SModalButton>;
+	const { toggle } = props;
+	return <SModalButton onClick={toggle}>＋</SModalButton>;
 };
 
 const SModalButton = styled.button`

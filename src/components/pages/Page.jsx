@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { BoxTitle } from "./components/atoms/BoxTitle";
+import { BoxTitle } from "./../atoms/BoxTitle";
 import { Link } from "react-router-dom";
 import { useLocation, useParams } from "react-router-dom";
 import React, { useState } from "react";
@@ -11,8 +11,8 @@ export const Page = (props) => {
 	const location = useLocation();
 	const { taskList } = location.state;
 
-	const targetTodo = taskList.find((elm) => {
-		return elm.id == id;
+	const targetTodo = taskList.find((elm, index) => {
+		return index == id;
 	});
 	const handleChange = (e) => {
 		setText({ ...targetTodo, title: e.target.value });

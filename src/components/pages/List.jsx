@@ -1,36 +1,47 @@
-import "./App.css";
+import "../../App.css";
 import styled from "styled-components";
-import { Modal } from "./components/molecules/Modal";
-import { Box } from "./components/organisms/Box";
-import { ModalButton } from "./components/atoms/ModalButton";
+import { Modal } from "../../components/molecules/Modal";
+import { useModal } from "../../hooks/useModal";
+import { Box } from "../../components/organisms/Box";
+import { ModalButton } from "../../components/atoms/ModalButton";
 import React, { useState, useEffect, useCallback } from "react";
 import toast from "react-hot-toast";
-import { STATUS } from "./const";
+import { STATUS } from "../../const";
 import axios from "axios";
 import { useLocation } from "react-router-dom";
 
 export const List = () => {
+	const { show, toggle } = useModal();
 	const location = useLocation();
 	const newTaskList = location.state;
-	// モーダル用
-	const [show, setShow] = useState();
-	const openModal = () => {
-		setShow(true);
-	};
 	// 状態管理
 	const [todoText, setTodoText] = useState("");
 	useEffect(() => {
+		// レスポンス受け取った後に判定してますが、リクエスト前に判定→必要ならリクエスト、とすれば余計な通信しなくて済みます
 		axios
 			.get("https://jsonplaceholder.typicode.com/todos")
 			.then((res) => {
 				if (!newTaskList) {
-					setIncompleteTodos(res.data);
+					const firstIncompletedTask = res.data.filter(
+						(item) => item.completed === true
+					);
+					const firstCompletedTask = res.data.filter(
+						(item) => item.completed === false
+					);
+					setIncompleteTodos(firstIncompletedTask);
+					setCompleteTodos(firstCompletedTask);
 				} else {
+					let incompletedTask = newTaskList.taskList.filter(
+						(item) => item.completed === true
+					);
+					let completedTask = newTaskList.taskList.filter(
+						(item) => item.completed === false
+					);
 					// completedがfalseの要素のものだけ取得する
-					incompleteTodos.current = newTaskList.taskList;
+					incompleteTodos.current = incompletedTask;
 					setIncompleteTodos(incompleteTodos.current);
 					// completedがtrueの要素のものだけ取得する
-					completeTodos.current = newTaskList.taskList;
+					completeTodos.current = completedTask;
 					setCompleteTodos(completeTodos.current);
 				}
 			})
@@ -74,7 +85,7 @@ export const List = () => {
 		const newTodos = [...incompleteTodos, todoText];
 		setIncompleteTodos(newTodos);
 		setTodoText("");
-		setShow(false);
+		toggle(false);
 	}, [todoText, setTodoText, incompleteTodos]);
 	return (
 		<>
@@ -83,6 +94,7 @@ export const List = () => {
 					title="Todo"
 					color="#CEFFED"
 					taskList={incompleteTodos}
+					taskList2={completeTodos}
 					status={STATUS.complete}
 					onClickComplete={onClickComplete}
 					onClickIncompleteDelete={onClickIncompleteDelete}
@@ -91,19 +103,20 @@ export const List = () => {
 					title="Complete"
 					color="#FFCA99"
 					taskList={completeTodos}
+					taskList2={incompleteTodos}
 					status={STATUS.incomplete}
 					onClickReturn={onClickReturn}
 					onClickCompleteDelete={onClickCompleteDelete}
 				/>
 			</SWrapper>
-			<ModalButton openModal={openModal} setShow={setShow} />
+			<ModalButton toggle={toggle} />
 			<Modal
-				setShow={setShow}
+				todoText={todoText}
 				setTodoText={setTodoText}
 				onClickAdd={onClickAdd}
-				todoText={todoText}
-				show={show}
 				incompleteTodos={incompleteTodos}
+				show={show}
+				toggle={toggle}
 			/>
 		</>
 	);
@@ -113,16 +126,3 @@ const SWrapper = styled.div`
 	gap: 30px;
 	grid-template-columns: 1fr 1fr 1fr;
 `;
-
-// 今は使わないので一旦ここにおいておく
-// const [progressTodos, setProgressTodos] = useState([
-// 	{ task: "開発中", category: "React" },
-// 	{ task: "ドラッグアンドドロップで", category: "React" },
-// 	{ task: "動かしたいぜ", category: "React" },
-// ]);
-// {/* <Box2
-//   title="Progress"
-//   color="#F4FFB1"
-//   progressTodos={progressTodos}
-//   setProgressTodos={setProgressTodos}
-// /> */}

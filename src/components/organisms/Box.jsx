@@ -11,6 +11,7 @@ export const Box = (props) => {
 		color,
 		status,
 		taskList,
+		taskList2,
 		onClickComplete,
 		onClickReturn,
 		onClickCompleteDelete,
@@ -18,6 +19,8 @@ export const Box = (props) => {
 	} = props;
 	// タスク数
 	const taskLength = taskList.length;
+	console.log(taskList);
+	console.log(taskList2);
 	const todoList = taskList.map((todo, index) => (
 		<SItem key={index}>
 			<SItemContent>
@@ -25,7 +28,9 @@ export const Box = (props) => {
 				<SItemTags>
 					<SItemTag>{todo.userId}</SItemTag>
 				</SItemTags>
-				<Link to={{ pathname: `todo/${index + 1}`, state: { taskList } }}>
+				<Link
+					to={{ pathname: `todo/${index}`, state: { taskList, taskList2 } }}
+				>
 					編集する
 				</Link>
 			</SItemContent>

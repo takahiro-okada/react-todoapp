@@ -1,12 +1,12 @@
 import styled from "styled-components";
 import IconModalClose from "../../images/icon-modalclose.png";
+import { useModal } from "../../hooks/useModal";
 
 export const ModalCloseButton = (props) => {
-	const closeModal = () => {
-		props.setShow(false);
-	};
+	const { toggle } = props;
+	console.log(toggle);
 	return (
-		<SModalCloseButton onClick={closeModal}>
+		<SModalCloseButton onClick={toggle}>
 			<img src={IconModalClose} alt="Close" />
 		</SModalCloseButton>
 	);

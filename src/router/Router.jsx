@@ -1,9 +1,9 @@
 import { Route, Switch } from "react-router-dom";
 import { Header } from "../components/organisms/Header";
-import { Home } from "../Home";
-import { List } from "../List";
-import { Page } from "../Page";
-import { Page404 } from "../Page404";
+import { Home } from "../components/pages/Home";
+import { List } from "../components/pages/List";
+import { Page } from "../components/pages/Page";
+import { Page404 } from "../components/pages/Page404";
 import styled from "styled-components";
 
 export const Router = () => {

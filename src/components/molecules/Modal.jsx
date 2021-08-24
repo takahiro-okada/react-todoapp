@@ -3,13 +3,13 @@ import { ModalCloseButton } from "../atoms/ModalCloseButton";
 import { memo } from "react";
 
 export const Modal = memo((props) => {
-	const { todoText, setTodoText, setShow, show, onClickAdd } = props;
+	const { todoText, setTodoText, toggle, show, onClickAdd } = props;
 	if (show) {
 		return (
 			<>
 				<SModalOverray>
 					<SModalContent>
-						<ModalCloseButton setShow={setShow} />
+						<ModalCloseButton toggle={toggle} />
 						<SModalBox>
 							<SModalItem>
 								<SModalTitle>TODO</SModalTitle>
