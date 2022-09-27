@@ -1,10 +1,15 @@
-# React 開発のための初期ファイル
+## Project Name
+Todo App by React.
 
-React での開発をするためのめんどくさい―初期設定をしなくてもいいように作成しました。
+## General
+I made this app while I am in RaiseTech React course.
 
-## 流れ
+## Technologies
+React
 
-1. git からクローンする
-2. コマンドに `npm install`を打つ
-3. コマンドに`npm start` を打つ
-4. ブラウザが立ち上がれば OK です！
+## Setup
+```
+git clone 
+npm install
+npm start
+```
